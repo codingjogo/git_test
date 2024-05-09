@@ -9,3 +9,6 @@ Copy the example above into files on your own computer. To make it work, you’l
 - another <h1> that says “I’m in a div”
 - a <p> that says “ME TOO!”
 - Hint for this one: after creating the <div> with createElement, append the <h1> and <p> to it before adding it to the container.
+
+## Reflection:
+- haha?
