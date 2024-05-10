@@ -1,61 +1,70 @@
-let items = ['something', 'here', 'lists'];
-// let items = [];
+// set shoppingList[]
+let shoppingList = ['a','b','c'];
 
-const input_newItem = document.querySelector('#input_newItem')
-console.log(input_newItem.value)
-const btn_addItem = document.querySelector('#btn_addItem')
-let list_item_component = document.querySelector('#list_item_component')
-// add click function to btn_addItem:
-// get input
-// add input in items[]
-// display new array list of items[]
 const displayItems = () => {
-    if (items.length < 0 || items.length === 0) {
-        list_item_component.innerHTML = '<p class="font-semibold text-red-400">ADD NEW ITEM </p>'
+    // get #shoppingList container (ul)
+    
+    const shoppingListContainer = document.querySelector('#shoppingList');
+    
+
+    if (shoppingList.length === 0) {
+        shoppingListContainer.innerHTML = '';
+        shoppingListContainer.innerHTML = '<p>please add item to list</p>'
     } else {
-        list_item_component.innerHTML = '';
-        items.map((item) => {
-            list_item_component.innerHTML += `
-                <li class="font-semibold text-lg mb-4"><span id="item">${item}</span><button class="btn-delete ml-6 bg-red-400">DELETE</button></li>
+        shoppingListContainer.innerHTML = ''
+        shoppingList.forEach((item, index) => {
+            // create li
+            // set text of li to shoppingList[0]
+            // create delete button
+            // set text delete
+            // set onClick function calling deleteItem(index)
+            // update UI
+
+            // const listItem = document.createElement('li');
+            // const deleteButton = document.createElement('button');
+    
+            // listItem.textContent = item;
+            // deleteButton.textContent = 'DELETE';
+            // deleteButton.onclick = () => deleteItem(index);
+    
+            // listItem.appendChild(deleteButton);
+    
+            // shoppingListContainer.appendChild(listItem);
+
+            // I think this is better? or getting exploit?
+            shoppingListContainer.innerHTML += `
+                <li><span>${item}</span><button onClick="deleteItem(${index})">DELETE</button></li>
             `
         })
     }
 }
 
-const deleteItem = (itemToDelete) => {
-    // this code will improve in other program so it must be object {id:1, item: 'string'} so it's better to identify an ID or whose gonna be deleted but for the sake of simplicity.
-
-    return items.filter((item) => itemToDelete !== item)
+// addItem(): 
+const addItem = () => {
+    // get input
+    const newItem = document.querySelector('#newItemInput').value.trim();
+    if (newItem === '') {
+        alert('please fill the input');
+    } else {
+        shoppingList.push(newItem);
+    }
+    // check if the input isn't empty
+    // push the input to the shoppingList[]
+    // update UI
+    displayItems();
 }
 
-input_newItem.addEventListener('keypress', (e) => {
-    // If the user presses the "Enter" key on the keyboard
-    if (e.key === "Enter") {
-        // Trigger the button element with a click
-        document.getElementById("btn_addItem").click();
-      }
-})
+// END of addItem()
 
-btn_addItem.addEventListener('click', (e) => {
-    const newItem = input_newItem.value;
+// deleteItem(index): using splice
+const deleteItem = (index) => {
+    // delete item using splice
+    shoppingList.splice(index, 1)
 
-    items.push(newItem);
-
+    // update UI
     displayItems();
-    input_newItem.value = '';
-})
+}
+// END of deleteItem(index)
 
-displayItems()
-
-const deleteBtns = document.querySelectorAll('.btn-delete')
-
-deleteBtns.forEach((btn) => {
-    // console.log(btn.previousElementSibling.textContent)
-
-        btn.addEventListener('click', () => {
-            // deletes an item in items[]
-            console.log(deleteItem(btn.previousElementSibling.textContent))
-            
-            displayItems();
-        })
-})
+// initial update UI
+displayItems();
